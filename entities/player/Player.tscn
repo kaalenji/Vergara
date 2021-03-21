@@ -1,0 +1,80 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://entities/player/player_controller.gd" type="Script" id=1]
+[ext_resource path="res://scenes/s_main/crepusculo.tres" type="ProceduralSky" id=2]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.6
+height = 1.5
+
+[sub_resource type="Environment" id=2]
+background_mode = 2
+background_sky = ExtResource( 2 )
+
+[sub_resource type="Animation" id=3]
+length = 20.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:omni_range")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 20 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 5.0, 30.0, 20.0, 5.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 20 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 3.0, 10.0, 6.0, 3.0 ]
+}
+
+[node name="Player" type="KinematicBody" groups=[
+"Player",
+]]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource( 1 )
+head_path = NodePath("Head")
+cam_path = NodePath("Head/Camera")
+
+[node name="Collision" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="Head" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+
+[node name="Camera" type="Camera" parent="Head"]
+keep_aspect = 0
+environment = SubResource( 2 )
+fov = 95.0
+
+[node name="SpotLight" type="SpotLight" parent="Head/Camera"]
+light_color = Color( 1, 0.784314, 0.392157, 1 )
+light_energy = 10.0
+shadow_enabled = true
+shadow_color = Color( 0.2, 0.2, 0.2, 1 )
+shadow_bias = 1.4
+shadow_contact = 0.05
+spot_range = 12.0
+spot_attenuation = 1.4
+spot_angle = 32.0
+spot_angle_attenuation = 0.6
+
+[node name="luz" type="OmniLight" parent="."]
+light_color = Color( 1, 0.784314, 0.392157, 1 )
+light_energy = 3.0
+omni_attenuation = 1.3
+
+[node name="light_booster" type="AnimationPlayer" parent="luz"]
+anims/luz_boost = SubResource( 3 )
