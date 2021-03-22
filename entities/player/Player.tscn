@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://entities/player/player_controller.gd" type="Script" id=1]
 [ext_resource path="res://scenes/s_main/crepusculo.tres" type="ProceduralSky" id=2]
+[ext_resource path="res://assets/Cañón.res" type="PackedScene" id=3]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.6
@@ -71,6 +72,9 @@ spot_range = 14.0
 spot_attenuation = 1.5
 spot_angle = 22.0
 spot_angle_attenuation = 0.2
+
+[node name="Cañón" parent="Head/Camera" instance=ExtResource( 3 )]
+transform = Transform( -1.62921e-08, 0, -0.1, 0, 0.1, 0, 0.1, 0, -1.62921e-08, 0, 0, -0.637525 )
 
 [node name="luz" type="OmniLight" parent="."]
 light_color = Color( 0.6, 0.4719, 0.234, 1 )
