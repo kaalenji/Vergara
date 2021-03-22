@@ -1,11 +1,10 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://scenes/s_main/default_env.tres" type="Environment" id=1]
+[ext_resource path="res://scenes/s_main/materials/tierra.material" type="Material" id=1]
 [ext_resource path="res://scenes/s_main/s_main.gd" type="Script" id=2]
 [ext_resource path="res://entities/player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/assets/ladder/Ladder.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/assets/fps_counter/FPS_Counter.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/s_main/materials/dark.material" type="Material" id=6]
 [ext_resource path="res://scenes/s_main/materials/blue.material" type="Material" id=7]
 [ext_resource path="res://assets/sakerhets.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scripts/cerillas_counter.gd" type="Script" id=9]
@@ -19,9 +18,6 @@ points = PoolVector3Array( -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 
 [sub_resource type="CubeMesh" id=3]
 size = Vector3( 1, 1, 1 )
 
-[sub_resource type="ConvexPolygonShape" id=4]
-points = PoolVector3Array( -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5 )
-
 [node name="S_Main" type="Spatial"]
 script = ExtResource( 2 )
 
@@ -31,7 +27,7 @@ script = ExtResource( 2 )
 transform = Transform( 40, 0, 0, 0, -6.51683e-06, -1, 0, 40, -1.62921e-07, 0.0313206, 9.53674e-07, 0.00365067 )
 use_in_baked_light = true
 mesh = SubResource( 1 )
-material/0 = ExtResource( 6 )
+material/0 = ExtResource( 1 )
 
 [node name="StaticBody" type="StaticBody" parent="ArenaGeometry/Floor1"]
 
@@ -79,55 +75,6 @@ material/0 = ExtResource( 7 )
 [node name="CollisionShape" type="CollisionShape" parent="ArenaGeometry/BigCube2/StaticBody"]
 shape = SubResource( 2 )
 
-[node name="Wall1" type="MeshInstance" parent="ArenaGeometry"]
-transform = Transform( 1, 0, 0, 0, -1.74846e-06, -6, 0, 40, -2.62268e-07, -19.5, 3.5, 0 )
-use_in_baked_light = true
-mesh = SubResource( 3 )
-material/0 = ExtResource( 7 )
-
-[node name="StaticBody" type="StaticBody" parent="ArenaGeometry/Wall1"]
-
-[node name="CollisionShape" type="CollisionShape" parent="ArenaGeometry/Wall1/StaticBody"]
-shape = SubResource( 4 )
-
-[node name="Wall2" type="MeshInstance" parent="ArenaGeometry"]
-transform = Transform( 1, 0, 0, 0, -1.74846e-06, -6, 0, 40, -2.62268e-07, 19.5, 3.5, 0 )
-use_in_baked_light = true
-mesh = SubResource( 3 )
-material/0 = ExtResource( 7 )
-
-[node name="StaticBody" type="StaticBody" parent="ArenaGeometry/Wall2"]
-
-[node name="CollisionShape" type="CollisionShape" parent="ArenaGeometry/Wall2/StaticBody"]
-shape = SubResource( 4 )
-
-[node name="Wall3" type="MeshInstance" parent="ArenaGeometry"]
-transform = Transform( -4.37114e-08, 40, -2.62268e-07, 0, -1.74846e-06, -6, -1, -1.74846e-06, 1.14641e-14, 0, 3.5, 19.5 )
-use_in_baked_light = true
-mesh = SubResource( 3 )
-material/0 = ExtResource( 7 )
-
-[node name="StaticBody" type="StaticBody" parent="ArenaGeometry/Wall3"]
-
-[node name="CollisionShape" type="CollisionShape" parent="ArenaGeometry/Wall3/StaticBody"]
-shape = SubResource( 4 )
-
-[node name="Wall4" type="MeshInstance" parent="ArenaGeometry"]
-transform = Transform( -4.37114e-08, 40, -2.62268e-07, 0, -1.74846e-06, -6, -1, -1.74846e-06, 1.14641e-14, 0, 3.5, -19.5 )
-use_in_baked_light = true
-mesh = SubResource( 3 )
-material/0 = ExtResource( 7 )
-
-[node name="StaticBody" type="StaticBody" parent="ArenaGeometry/Wall4"]
-
-[node name="CollisionShape" type="CollisionShape" parent="ArenaGeometry/Wall4/StaticBody"]
-shape = SubResource( 4 )
-
-[node name="Lighting" type="Spatial" parent="."]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Lighting"]
-environment = ExtResource( 1 )
-
 [node name="Player" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
 
@@ -135,6 +82,21 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
 
 [node name="sakerhets" parent="sakerhets" instance=ExtResource( 8 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 13.4119, 0.5, 14.9055 )
+
+[node name="sakerhets5" parent="sakerhets" instance=ExtResource( 8 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 12.4119, 0.5, 3.9055 )
+
+[node name="sakerhets7" parent="sakerhets" instance=ExtResource( 8 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7.4119, 0.5, 7.9055 )
+
+[node name="sakerhets8" parent="sakerhets" instance=ExtResource( 8 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5.4119, 0.5, 12.9055 )
+
+[node name="sakerhets9" parent="sakerhets" instance=ExtResource( 8 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.5881, 0.5, 12.9055 )
+
+[node name="sakerhets6" parent="sakerhets" instance=ExtResource( 8 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 12.4119, 0.5, 3.9055 )
 
 [node name="sakerhets4" parent="sakerhets" instance=ExtResource( 8 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -15.8881, 0.5, 16.2055 )
@@ -163,6 +125,11 @@ align = 1
 script = ExtResource( 9 )
 [connection signal="cerillaUsed" from="Player" to="CERILLAS" method="_on_Player_cerillaUsed"]
 [connection signal="cerillaCollected" from="sakerhets/sakerhets" to="CERILLAS" method="_on_sakerhets_cerillaCollected"]
+[connection signal="cerillaCollected" from="sakerhets/sakerhets5" to="CERILLAS" method="_on_sakerhets_cerillaCollected"]
+[connection signal="cerillaCollected" from="sakerhets/sakerhets7" to="CERILLAS" method="_on_sakerhets_cerillaCollected"]
+[connection signal="cerillaCollected" from="sakerhets/sakerhets8" to="CERILLAS" method="_on_sakerhets_cerillaCollected"]
+[connection signal="cerillaCollected" from="sakerhets/sakerhets9" to="CERILLAS" method="_on_sakerhets_cerillaCollected"]
+[connection signal="cerillaCollected" from="sakerhets/sakerhets6" to="CERILLAS" method="_on_sakerhets_cerillaCollected"]
 [connection signal="cerillaCollected" from="sakerhets/sakerhets4" to="CERILLAS" method="_on_sakerhets_cerillaCollected"]
 [connection signal="cerillaCollected" from="sakerhets/sakerhets2" to="CERILLAS" method="_on_sakerhets_cerillaCollected"]
 [connection signal="cerillaCollected" from="sakerhets/sakerhets3" to="CERILLAS" method="_on_sakerhets_cerillaCollected"]

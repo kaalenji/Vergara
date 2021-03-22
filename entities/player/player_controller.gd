@@ -2,6 +2,9 @@ extends KinematicBody
 
 ###################-VARIABLES-####################
 
+var compare = preload("res://utils/constants.gd")
+var canLight = true
+
 # Camera
 export(float) var mouse_sensitivity = 12.0
 export(NodePath) var head_path
@@ -86,12 +89,14 @@ func walk(delta: float) -> void:
 			_snap = Vector3.ZERO
 			velocity.y = jump_height
 	
-	### USAR CERILLAS
+	### USAR CERILLAS	
 		
 	if Input.is_action_just_pressed("light_up"):
-		$luz/light_booster.play("luz_boost")
-		emit_signal("cerillaUsed")
-		print("emit cerillaUsed")
+		if get_parent().get_node("CERILLAS").cerillasContador > compare.cerillasMin and canLight:
+			canLight = false
+			$luz/light_booster/Timer.start()
+			$luz/light_booster.play("luz_boost")
+			emit_signal("cerillaUsed")
 	
 	# Apply Gravity
 	velocity.y -= gravity * delta
@@ -180,3 +185,7 @@ func camera_rotation() -> void:
 
 func can_sprint() -> bool:
 	return (sprint_enabled and is_on_floor())
+
+
+func _on_Timer_timeout():
+	canLight = true
