@@ -23,4 +23,3 @@ func _process(delta):
 	
 	if(t >= ttl || global_transform.origin.distance_to(Vector3(0,0,0)) > 50):
 		queue_free()
-	#print(translation)    

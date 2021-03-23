@@ -14,9 +14,9 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if(Input.is_action_just_pressed("click")):
-		disparar(200)
+		disparar(120) # velocidad balas
 
 func disparar(v):
 	var nodo_bala = bala.instance()
@@ -28,4 +28,3 @@ func disparar(v):
 	
 	var dir = global_transform.origin-sal.global_transform.origin
 	nodo_bala.v = dir * v
-	print(dir)

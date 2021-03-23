@@ -1,17 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://entities/player/player_controller.gd" type="Script" id=1]
-[ext_resource path="res://scenes/s_main/crepusculo.tres" type="ProceduralSky" id=2]
 [ext_resource path="res://assets/Cañón.res" type="PackedScene" id=3]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.6
 height = 1.5
-
-[sub_resource type="Environment" id=2]
-background_mode = 2
-background_sky = ExtResource( 2 )
-ambient_light_energy = 0.2
 
 [sub_resource type="Animation" id=3]
 length = 20.0
@@ -58,7 +52,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 
 [node name="Camera" type="Camera" parent="Head"]
 keep_aspect = 0
-environment = SubResource( 2 )
 fov = 95.0
 
 [node name="SpotLight" type="SpotLight" parent="Head/Camera"]

@@ -92,11 +92,13 @@ func walk(delta: float) -> void:
 	### USAR CERILLAS	
 		
 	if Input.is_action_just_pressed("light_up"):
-		if get_parent().get_node("CERILLAS").cerillasContador > compare.cerillasMin and canLight:
+		if get_parent().get_node("HUD/CERILLAS").cerillasContador > compare.cerillasMin and canLight:
 			canLight = false
 			$luz/light_booster/Timer.start()
 			$luz/light_booster.play("luz_boost")
 			emit_signal("cerillaUsed")
+		else:
+			pass
 	
 	# Apply Gravity
 	velocity.y -= gravity * delta
