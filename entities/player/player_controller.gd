@@ -32,7 +32,7 @@ export(int) var jump_height = 12
 export(int) var fly_speed = 10
 export(int) var fly_accel = 4
 var flying := false
-
+var change_v = false
 ### SIGNALS ###
 
 signal cerillaUsed
@@ -64,7 +64,6 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		mouse_axis = event.relative
 		camera_rotation()
-
 
 func walk(delta: float) -> void:
 	# Input
@@ -105,7 +104,7 @@ func walk(delta: float) -> void:
 	
 	# Sprint
 	var _speed: int
-	if (Input.is_action_pressed("move_sprint") and can_sprint()):# and move_axis.x >= 0.5):
+	if (Input.is_action_pressed("move_sprint") and can_sprint()):
 		_speed = sprint_speed
 		cam.set_fov(lerp(cam.fov, FOV * 1.05, delta * 8))
 		sprinting = true
@@ -160,6 +159,7 @@ func fly(delta: float) -> void:
 		direction -= aim.x
 	if move_axis.y >= 0.5:
 		direction += aim.x
+		
 	direction = direction.normalized()
 	
 	# Acceleration and Deacceleration
@@ -188,7 +188,8 @@ func camera_rotation() -> void:
 		head.rotation_degrees = temp_rot
 
 func can_sprint() -> bool:
-	return (sprint_enabled and is_on_floor())
+	var moving = velocity.length() > 0.57
+	return (sprint_enabled and moving and is_on_floor())
 
 
 func _on_Timer_timeout():
