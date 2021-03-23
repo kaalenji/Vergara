@@ -23,8 +23,17 @@ size = Vector3( 1, 1, 1 )
 [node name="S_Main" type="Spatial"]
 script = ExtResource( 2 )
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource( 6 )
+[node name="Player" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
+FOV = 95.0
+walk_speed = 11
+sprint_speed = 17
+acceleration = 9
+deacceleration = 11
+air_control = 0.35
+jump_height = 11
+fly_speed = 8
+fly_accel = 5
 
 [node name="ArenaGeometry" type="Spatial" parent="."]
 
@@ -80,17 +89,25 @@ material/0 = ExtResource( 7 )
 [node name="CollisionShape" type="CollisionShape" parent="ArenaGeometry/BigCube2/StaticBody"]
 shape = SubResource( 2 )
 
-[node name="Player" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
-FOV = 95.0
-walk_speed = 11
-sprint_speed = 17
-acceleration = 9
-deacceleration = 11
-air_control = 0.35
-jump_height = 11
-fly_speed = 8
-fly_accel = 5
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 6 )
+
+[node name="demonios" type="Spatial" parent="."]
+
+[node name="demonio_pocho" parent="demonios" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0.1, -7 )
+
+[node name="demonio_pocho2" parent="demonios" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 3.1, 6 )
+
+[node name="demonio_pocho3" parent="demonios" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 3.1, -7 )
+
+[node name="demonio_pocho4" parent="demonios" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 0.1, 46 )
+
+[node name="demonio_pocho5" parent="demonios" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -46, 0.1, 46 )
 
 [node name="sakerhets" type="Spatial" parent="."]
 
@@ -120,23 +137,6 @@ transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -13.188
 
 [node name="sakerhets3" parent="sakerhets" instance=ExtResource( 8 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.31189, 3, -7.49454 )
-
-[node name="demonios" type="Spatial" parent="."]
-
-[node name="demonio_pocho" parent="demonios" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0.1, -7 )
-
-[node name="demonio_pocho2" parent="demonios" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 3.1, 6 )
-
-[node name="demonio_pocho3" parent="demonios" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 3.1, -7 )
-
-[node name="demonio_pocho4" parent="demonios" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 0.1, 46 )
-
-[node name="demonio_pocho5" parent="demonios" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -46, 0.1, 46 )
 
 [node name="Ladder" parent="." instance=ExtResource( 4 )]
 transform = Transform( -4.37114e-08, 0, 7, 0, 1.51, 0, -1, 0, -3.0598e-07, 13.25, 1.5, -5.25 )
