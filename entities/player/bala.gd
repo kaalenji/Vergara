@@ -1,20 +1,13 @@
-extends Spatial
+extends Area
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 var v = Vector3(0,2,0)
 var init = true
 var t = 0
 var ttl = 4
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
 	pass
 
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if(init):
 		init = false
@@ -23,3 +16,10 @@ func _process(delta):
 	
 	if(t >= ttl || global_transform.origin.distance_to(Vector3(0,0,0)) > 50):
 		queue_free()
+
+func _on_bala_body_entered(_body: PhysicsBody) -> void:
+	$AnimationPlayer.play("bala_free")
+	$balaColision.start()
+
+func _on_balaColision_timeout():
+	queue_free()

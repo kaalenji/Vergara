@@ -21,13 +21,13 @@ var sprint_enabled := true
 var sprinting := false
 # Walk
 const FLOOR_MAX_ANGLE: float = deg2rad(46.0)
-export(float) var gravity = 30.0
-export(int) var walk_speed = 10
-export(int) var sprint_speed = 16
-export(int) var acceleration = 8
+export(float) var gravity = 34.0
+export(int) var walk_speed = 18
+export(int) var sprint_speed = 24
+export(int) var acceleration = 10
 export(int) var deacceleration = 10
-export(float, 0.0, 1.0, 0.05) var air_control = 0.3
-export(int) var jump_height = 10
+export(float, 0.0, 1.0, 0.05) var air_control = 1.1
+export(int) var jump_height = 12
 # Fly
 export(int) var fly_speed = 10
 export(int) var fly_accel = 4
@@ -92,7 +92,7 @@ func walk(delta: float) -> void:
 	### USAR CERILLAS	
 		
 	if Input.is_action_just_pressed("light_up"):
-		if get_parent().get_node("HUD/CERILLAS").cerillasContador > compare.cerillasMin and canLight:
+		if get_parent().get_node("MarginContainer/GridContainer/CERILLAS").cerillasContador > compare.cerillasMin and canLight:
 			canLight = false
 			$luz/light_booster/Timer.start()
 			$luz/light_booster.play("luz_boost")
@@ -105,14 +105,16 @@ func walk(delta: float) -> void:
 	
 	# Sprint
 	var _speed: int
-	if (Input.is_action_pressed("move_sprint") and can_sprint() and move_axis.x >= 0.5):
+	if (Input.is_action_pressed("move_sprint") and can_sprint()):# and move_axis.x >= 0.5):
 		_speed = sprint_speed
 		cam.set_fov(lerp(cam.fov, FOV * 1.05, delta * 8))
 		sprinting = true
+		$Head/Camera/AnimationPlayer.play("sprint")
 	else:
 		_speed = walk_speed
 		cam.set_fov(lerp(cam.fov, FOV, delta * 8))
 		sprinting = false
+		$Head/Camera/AnimationPlayer.play("camera_idle")
 	
 	# Acceleration and Deacceleration
 	# where would the player go
@@ -191,3 +193,8 @@ func can_sprint() -> bool:
 
 func _on_Timer_timeout():
 	canLight = true
+
+
+func _on_Ladder_body_entered(body):
+	if body.name == "Player":
+		velocity.y = 10
