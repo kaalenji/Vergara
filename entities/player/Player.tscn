@@ -1,13 +1,30 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://entities/player/player_controller.gd" type="Script" id=1]
-[ext_resource path="res://assets/Cañón.res" type="PackedScene" id=3]
+[ext_resource path="res://entities/player/canon.res" type="PackedScene" id=3]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.6
 height = 1.5
 
 [sub_resource type="Animation" id=3]
+resource_name = "camera_idle"
+length = 1.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0.05, 0 ), Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
 length = 20.0
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:omni_range")
@@ -52,7 +69,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 
 [node name="Camera" type="Camera" parent="Head"]
 keep_aspect = 0
-fov = 95.0
+fov = 85.0
 
 [node name="SpotLight" type="SpotLight" parent="Head/Camera"]
 light_color = Color( 1, 0.784314, 0.392157, 1 )
@@ -67,7 +84,11 @@ spot_angle = 22.0
 spot_angle_attenuation = 0.2
 
 [node name="Cañón" parent="Head/Camera" instance=ExtResource( 3 )]
-transform = Transform( -1.62921e-08, 0, -0.1, 0, 0.1, 0, 0.1, 0, -1.62921e-08, 0, 0, -0.637525 )
+transform = Transform( -3.0598e-09, 0, -0.07, 0, 0.07, 0, 0.07, 0, -3.0598e-09, 0.4, -0.2, -1.03752 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Head/Camera"]
+autoplay = "camera_idle"
+anims/camera_idle = SubResource( 3 )
 
 [node name="luz" type="OmniLight" parent="."]
 light_color = Color( 0.6, 0.4719, 0.234, 1 )
@@ -76,7 +97,7 @@ light_specular = 0.1
 omni_attenuation = 2.0
 
 [node name="light_booster" type="AnimationPlayer" parent="luz"]
-anims/luz_boost = SubResource( 3 )
+anims/luz_boost = SubResource( 2 )
 
 [node name="Timer" type="Timer" parent="luz/light_booster"]
 wait_time = 20.0
