@@ -12,8 +12,12 @@ func _ready():
 
 func _damaged(var damage):
 	vida -= damage
+	$AnimationPlayer.play("hit")
+	print("Vida demonio:" + str(vida))
 	if(vida <= 0):
 		queue_free()
-func _process(delta):
-	add_central_force(player.translation - translation)
+		
+		#### CODIGO IMPORTANTISIMO
+#func _process(delta):
+	#add_central_force(player.translation - translation)
 #	pass

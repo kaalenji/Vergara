@@ -1,8 +1,10 @@
 extends Spatial
 
 var bala = preload("res://entities/player/bala.res")
-export (int) var velocidadDisparo = 300
+export (int) var balaSpeed = 300
+export(bool) var espocetaSwitch = false
 
+var timerPium = true
 var canPium = true
 
 # Called when the node enters the scene tree for the first time.
@@ -11,10 +13,14 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	while(Input.is_action_pressed("click")) and canPium:
-		disparar(velocidadDisparo) # velocidad balas
-		$AnimationPlayer.play("pium")
-		canPium = false
+	while(Input.is_action_pressed("click")) and timerPium and !get_node("../../").sprinting:
+		disparar(balaSpeed) # velocidad balas
+		espocetaSwitch = !espocetaSwitch
+		if (espocetaSwitch):
+			get_node("escopeta/AnimationPlayer").play("FireWBullet001")
+		else:
+			get_node("escopeta2/AnimationPlayer").play("FireWBullet001")
+		timerPium = false
 		$limiteDisparo.start()
 	
 func disparar(v):
@@ -29,4 +35,4 @@ func disparar(v):
 	nodo_bala.v = dir * v
 
 func _on_limiteDisparo_timeout():
-	canPium = true
+	timerPium = true

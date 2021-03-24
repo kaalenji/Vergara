@@ -6,13 +6,14 @@ var compare = preload("res://utils/constants.gd")
 var canLight = true
 
 # Camera
-export(float) var mouse_sensitivity = 12.0
+var mouse_sensitivity = 9.2
 export(NodePath) var head_path
 export(NodePath) var cam_path
-export(float) var FOV = 80.0
+var FOV = 90.0
 var mouse_axis := Vector2()
 onready var head: Spatial = get_node(head_path)
 onready var cam: Camera = get_node(cam_path)
+onready var ap = $Head/Camera/AnimationPlayer
 # Move
 var velocity := Vector3()
 var direction := Vector3()
@@ -21,22 +22,28 @@ var sprint_enabled := true
 var sprinting := false
 # Walk
 const FLOOR_MAX_ANGLE: float = deg2rad(46.0)
-export(float) var gravity = 34.0
-export(int) var walk_speed = 18
-export(int) var sprint_speed = 24
-export(int) var acceleration = 10
-export(int) var deacceleration = 10
-export(float, 0.0, 1.0, 0.05) var air_control = 1.1
-export(int) var jump_height = 12
+var gravity = 34.0
+var walk_speed = 28
+var sprint_speed = 38
+var acceleration = 22
+var deacceleration = 15
+var air_control = .9
+var jump_height = 12
 # Fly
-export(int) var fly_speed = 10
-export(int) var fly_accel = 4
+var fly_speed = 20
+var fly_accel = 40
 var flying := false
 var change_v = false
+
+enum {
+	IDLE,
+	CAMINANDO,
+	CORRIENDO
+}
+var state = IDLE	
+
 ### SIGNALS ###
-
 signal cerillaUsed
-
 ##################################################
 
 # Called when the node enters the scene tree
@@ -49,7 +56,21 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	move_axis.x = Input.get_action_strength("move_forward") - Input.get_action_strength("move_backward")
 	move_axis.y = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-
+	
+	if is_on_floor() and velocity.length() < 0.56:
+		state = IDLE
+	elif is_on_floor() and velocity.length() > 0.56 and !sprinting:
+		state = CAMINANDO
+	elif is_on_floor() and velocity.length() > 0.56 and sprinting:
+		state = CORRIENDO
+		
+	match state: 
+		IDLE:
+			ap.play("camera_idle")
+		CAMINANDO:
+			ap.play("walk")
+		CORRIENDO:
+			ap.play("sprint")
 
 # Called every physics tick. 'delta' is constant
 func _physics_process(delta: float) -> void:
@@ -57,8 +78,7 @@ func _physics_process(delta: float) -> void:
 		fly(delta)
 	else:
 		walk(delta)
-
-
+		
 # Called when there is an input event
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -106,14 +126,12 @@ func walk(delta: float) -> void:
 	var _speed: int
 	if (Input.is_action_pressed("move_sprint") and can_sprint()):
 		_speed = sprint_speed
-		cam.set_fov(lerp(cam.fov, FOV * 1.05, delta * 8))
+		cam.set_fov(lerp(cam.fov, FOV * 1.05, delta * 1))
 		sprinting = true
-		$Head/Camera/AnimationPlayer.play("sprint")
 	else:
 		_speed = walk_speed
-		cam.set_fov(lerp(cam.fov, FOV, delta * 8))
+		cam.set_fov(lerp(cam.fov, FOV, delta * 1))
 		sprinting = false
-		$Head/Camera/AnimationPlayer.play("camera_idle")
 	
 	# Acceleration and Deacceleration
 	# where would the player go
@@ -186,6 +204,7 @@ func camera_rotation() -> void:
 		var temp_rot: Vector3 = head.rotation_degrees
 		temp_rot.x = clamp(temp_rot.x, -90, 90)
 		head.rotation_degrees = temp_rot
+		
 
 func can_sprint() -> bool:
 	var moving = velocity.length() > 0.57
@@ -199,3 +218,4 @@ func _on_Timer_timeout():
 func _on_Ladder_body_entered(body):
 	if body.name == "Player":
 		velocity.y = 10
+

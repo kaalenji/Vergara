@@ -1148,4 +1148,4 @@ click={
 [rendering]
 
 quality/filters/msaa=1
-environment/default_environment="res://scenes/default_env.tres"
+environment/default_environment="res://scenes/plain_dia.tres"

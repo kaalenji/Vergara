@@ -4,15 +4,3 @@
 resource_name = "canon_idle"
 length = 3.5
 loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("LongPistol:translation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 1.75, 3.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector3( 5.2, -0.6, -2.5 ), Vector3( 5.2, -0.8, -2.5 ) ]
-}

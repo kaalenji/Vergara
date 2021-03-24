@@ -1,11 +1,10 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/s_main/materials/tierra.material" type="Material" id=1]
 [ext_resource path="res://scenes/s_main/s_main.gd" type="Script" id=2]
 [ext_resource path="res://entities/player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/assets/ladder/Ladder.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/assets/fps_counter/FPS_Counter.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/default_env.tres" type="Environment" id=6]
 [ext_resource path="res://scenes/s_main/materials/blue.material" type="Material" id=7]
 [ext_resource path="res://assets/sakerhets.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scripts/cerillas_counter.gd" type="Script" id=9]
@@ -23,22 +22,10 @@ size = Vector3( 1, 1, 1 )
 [node name="S_Main" type="Spatial"]
 script = ExtResource( 2 )
 
-[node name="Player" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
-FOV = 95.0
-walk_speed = 11
-sprint_speed = 17
-acceleration = 9
-deacceleration = 11
-air_control = 0.35
-jump_height = 11
-fly_speed = 8
-fly_accel = 5
-
 [node name="ArenaGeometry" type="Spatial" parent="."]
 
 [node name="Floor1" type="MeshInstance" parent="ArenaGeometry"]
-transform = Transform( 100, 0, 0, 0, -4.37114e-06, -1, 0, 100, -4.37114e-08, 0, -0.5, 0 )
+transform = Transform( 500, 0, 0, 0, -2.18557e-05, -1, 0, 500, -4.37114e-08, 0, -0.5, 0 )
 use_in_baked_light = true
 mesh = SubResource( 1 )
 material/0 = ExtResource( 1 )
@@ -89,25 +76,8 @@ material/0 = ExtResource( 7 )
 [node name="CollisionShape" type="CollisionShape" parent="ArenaGeometry/BigCube2/StaticBody"]
 shape = SubResource( 2 )
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource( 6 )
-
-[node name="demonios" type="Spatial" parent="."]
-
-[node name="demonio_pocho" parent="demonios" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0.1, -7 )
-
-[node name="demonio_pocho2" parent="demonios" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 3.1, 6 )
-
-[node name="demonio_pocho3" parent="demonios" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 3.1, -7 )
-
-[node name="demonio_pocho4" parent="demonios" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 0.1, 46 )
-
-[node name="demonio_pocho5" parent="demonios" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -46, 0.1, 46 )
+[node name="Player" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
 
 [node name="sakerhets" type="Spatial" parent="."]
 
@@ -138,6 +108,23 @@ transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -13.188
 [node name="sakerhets3" parent="sakerhets" instance=ExtResource( 8 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.31189, 3, -7.49454 )
 
+[node name="demonios" type="Spatial" parent="."]
+
+[node name="demonio_pocho" parent="demonios" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0.1, -7 )
+
+[node name="demonio_pocho2" parent="demonios" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 3.1, 6 )
+
+[node name="demonio_pocho3" parent="demonios" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 3.1, -7 )
+
+[node name="demonio_pocho4" parent="demonios" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 0.1, 46 )
+
+[node name="demonio_pocho5" parent="demonios" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -46, 0.1, 46 )
+
 [node name="Ladder" parent="." instance=ExtResource( 4 )]
 transform = Transform( -4.37114e-08, 0, 7, 0, 1.51, 0, -1, 0, -3.0598e-07, 13.25, 1.5, -5.25 )
 
@@ -155,12 +142,16 @@ __meta__ = {
 }
 
 [node name="cruceta" type="Label" parent="cruceta"]
-margin_left = 183.0
-margin_top = 176.0
-margin_right = 217.0
-margin_bottom = 224.0
+margin_left = 165.0
+margin_top = 159.0
+margin_right = 235.0
+margin_bottom = 241.0
+custom_colors/font_color = Color( 1, 1, 1, 0.313726 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 text = "|
---- ---
+
+---          ---
+
 |"
 align = 1
 valign = 1
