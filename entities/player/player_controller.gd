@@ -56,7 +56,6 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	move_axis.x = Input.get_action_strength("move_forward") - Input.get_action_strength("move_backward")
 	move_axis.y = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-	
 	if is_on_floor() and velocity.length() < 0.56:
 		state = IDLE
 	elif is_on_floor() and velocity.length() > 0.56 and !sprinting:
