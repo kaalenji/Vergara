@@ -18,6 +18,6 @@ func _damaged(var damage):
 		queue_free()
 		
 		#### CODIGO IMPORTANTISIMO
-#func _process(delta):
-	#add_central_force(player.translation - translation)
-#	pass
+func _process(_delta):
+	add_central_force(player.translation - translation)
+	pass

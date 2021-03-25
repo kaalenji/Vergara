@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/s_main/materials/tierra.material" type="Material" id=1]
 [ext_resource path="res://scenes/s_main/s_main.gd" type="Script" id=2]
 [ext_resource path="res://entities/player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/assets/ladder/Ladder.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/assets/fps_counter/FPS_Counter.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/cerilla.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/s_main/materials/blue.material" type="Material" id=7]
 [ext_resource path="res://assets/sakerhets.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scripts/cerillas_counter.gd" type="Script" id=9]
@@ -185,6 +186,10 @@ margin_bottom = 32.0
 text = "A"
 align = 1
 script = ExtResource( 9 )
+
+[node name="cerilla" parent="." instance=ExtResource( 6 )]
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 13, 0 )
+mass = 0.510204
 [connection signal="cerillaUsed" from="Player" to="MarginContainer/GridContainer/CERILLAS" method="_on_Player_cerillaUsed"]
 [connection signal="cerillaCollected" from="sakerhets/sakerhets" to="MarginContainer/GridContainer/CERILLAS" method="_on_sakerhets_cerillaCollected"]
 [connection signal="cerillaCollected" from="sakerhets/sakerhets5" to="MarginContainer/GridContainer/CERILLAS" method="_on_sakerhets_cerillaCollected"]

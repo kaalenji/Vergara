@@ -23,10 +23,10 @@ var sprinting := false
 # Walk
 const FLOOR_MAX_ANGLE: float = deg2rad(46.0)
 var gravity = 34.0
-var walk_speed = 28
-var sprint_speed = 38
-var acceleration = 22
-var deacceleration = 15
+var walk_speed = 25
+var sprint_speed = 40
+var acceleration = 20
+var deacceleration = 14
 var air_control = .9
 var jump_height = 12
 # Fly
@@ -110,14 +110,14 @@ func walk(delta: float) -> void:
 	
 	### USAR CERILLAS	
 		
-	if Input.is_action_just_pressed("light_up"):
-		if get_parent().get_node("MarginContainer/GridContainer/CERILLAS").cerillasContador > compare.cerillasMin and canLight:
-			canLight = false
-			$luz/light_booster/Timer.start()
-			$luz/light_booster.play("luz_boost")
-			emit_signal("cerillaUsed")
-		else:
-			pass
+	#if Input.is_action_just_pressed("light_up"):
+	#	if get_parent().get_node("MarginContainer/GridContainer/CERILLAS").cerillasContador > compare.cerillasMin and canLight:
+	#		canLight = false
+	#		$luz/light_booster/Timer.start()
+	#		$luz/light_booster.play("luz_boost")
+	#		emit_signal("cerillaUsed")
+	#	else:
+	#		pass
 	
 	# Apply Gravity
 	velocity.y -= gravity * delta

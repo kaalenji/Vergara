@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://entities/player/player_controller.gd" type="Script" id=1]
 [ext_resource path="res://scenes/noche.tres" type="Environment" id=2]
@@ -10,7 +10,7 @@ height = 0.8
 
 [sub_resource type="Animation" id=2]
 resource_name = "camera_idle"
-length = 4.0
+length = 1.5
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:translation")
@@ -19,10 +19,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 2, 4 ),
+"times": PoolRealArray( 0.75, 1.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, 0.18, 0 ), Vector3( 0, 0, 0 ) ]
+"values": [ Vector3( 0, 0.05, 0 ), Vector3( 0, 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -39,7 +39,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3, 0.5, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, -1 ), Vector3( 0, 0, 1 ), Vector3( 0, 0, 0 ) ]
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, -0.8 ), Vector3( 0, 0, 0.8 ), Vector3( 0, 0, 0 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:translation")
@@ -51,7 +51,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.3, 0.5, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0.09, 0 ), Vector3( 0, 0.18, 0 ), Vector3( 0, 0, 0 ) ]
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0.08, 0 ), Vector3( 0, 0.12, 0 ), Vector3( 0, 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -80,34 +80,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.3, 0.5, 0.7 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0.05, 0 ), Vector3( 0, 0.12, 0 ), Vector3( 0, 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=5]
-length = 20.0
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:omni_range")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.6, 20 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 5.0, 30.0, 20.0, 5.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:light_energy")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.3, 0.6, 20 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 3.0, 10.0, 6.0, 3.0 ]
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0.06, 0 ), Vector3( 0, 0.08, 0 ), Vector3( 0, 0, 0 ) ]
 }
 
 [node name="Player" type="KinematicBody" groups=[
@@ -132,7 +105,7 @@ transform = Transform( -3.25836e-08, 0.00116355, -0.199997, 1.89566e-10, 0.19999
 balaSpeed = 11000
 
 [node name="Camera" type="Camera" parent="Head"]
-transform = Transform( 0.999999, -0.00127855, 7.10543e-15, 0.00127855, 0.999999, 1.60235e-17, -7.10543e-15, -6.93889e-18, 1, 0, 0.0175813, 0 )
+transform = Transform( 0.999998, 0.00202938, 0, -0.00202938, 0.999998, 0, 0, 0, 1, 0, 0.013953, 0 )
 keep_aspect = 0
 environment = ExtResource( 2 )
 fov = 85.0
@@ -158,14 +131,8 @@ spot_angle = 28.0
 spot_angle_attenuation = 0.2
 
 [node name="luz" type="OmniLight" parent="."]
-light_color = Color( 0.7, 0.602, 0.42, 1 )
+light_color = Color( 0.701961, 0.603922, 0.419608, 1 )
 light_energy = 3.0
 light_specular = 0.1
+omni_range = 10.0
 omni_attenuation = 2.0
-
-[node name="light_booster" type="AnimationPlayer" parent="luz"]
-anims/luz_boost = SubResource( 5 )
-
-[node name="Timer" type="Timer" parent="luz/light_booster"]
-wait_time = 20.0
-[connection signal="timeout" from="luz/light_booster/Timer" to="." method="_on_Timer_timeout"]

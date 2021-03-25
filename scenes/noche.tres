@@ -8,6 +8,7 @@ background_sky = ExtResource( 1 )
 fog_enabled = true
 fog_color = Color( 0.0745098, 0.0862745, 0.101961, 1 )
 fog_sun_color = Color( 0.501961, 0.439216, 0.439216, 1 )
+fog_sun_amount = 1.0
 fog_transmit_enabled = true
 fog_height_enabled = true
 fog_height_min = 1.0
