@@ -48,10 +48,9 @@ func dispararEscopeta(v):
 		var nodo_bala = bala.instance()
 		nodo_bala.translation = global_transform.origin
 		var sal = get_node("salida")
-		var desv = 0.0015*Vector3(cos((float(my_random_number1)/float(numProjectil))*2*PI),sin((float(my_random_number2)/float(numProjectil))*2*PI),0)
-		print(rot)
+		var desv = 0.005*Vector3(cos((float(my_random_number1)/float(numProjectil))*2*PI),sin((float(my_random_number2)/float(numProjectil))*2*PI),sin((float(my_random_number1)/float(numProjectil))*2*PI))
 		get_parent().get_parent().get_parent().get_parent().add_child(nodo_bala)
 		var dir = global_transform.origin + desv - sal.global_transform.origin
-		nodo_bala.v = dir * v 
+		nodo_bala.v = dir * v
 func _on_limiteDisparo_timeout():
 	timerPium = true
