@@ -8,7 +8,7 @@ var FOV = 90.0
 var mouse_axis := Vector2()
 onready var head: Spatial = get_node(head_path)
 onready var cam: Camera = get_node(cam_path)
-onready var cojera = $Head/Camera/cojera
+onready var cojera = $Head/AnimationTree
 # Move
 var velocity := Vector3()
 var direction := Vector3()
@@ -18,10 +18,10 @@ var sprinting := false
 # Walk
 const FLOOR_MAX_ANGLE: float = deg2rad(46.0)
 var gravity = 34.0
-var walk_speed = 25
-var sprint_speed = 40
-var acceleration = 20
-var deacceleration = 14
+var walk_speed = 18
+var sprint_speed = 26
+var acceleration = 10
+var deacceleration = 12
 var air_control = .9
 var jump_height = 12
 # Fly
@@ -44,7 +44,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame
-func _process(_delta: float) -> void:
+func _process(delta: float):# -> void:
 	move_axis.x = Input.get_action_strength("move_forward") - Input.get_action_strength("move_backward")
 	move_axis.y = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	
@@ -57,11 +57,14 @@ func _process(_delta: float) -> void:
 		
 	match state: 
 		IDLE:
-			cojera.play("camera_idle")
+			#cojera.play("camera_idle")
+			cojera.set("parameters/state_blend/blend_amount", lerp($Head/AnimationTree.get("parameters/state_blend/blend_amount"), 0, delta * acceleration))
 		CAMINANDO:
-			cojera.play("walk")
+			#cojera.play("walk")
+			cojera.set("parameters/state_blend/blend_amount", lerp($Head/AnimationTree.get("parameters/state_blend/blend_amount"), -1, delta * acceleration))
 		CORRIENDO:
-			cojera.play("sprint")
+			#cojera.play("sprint")
+			cojera.set("parameters/state_blend/blend_amount", lerp($Head/AnimationTree.get("parameters/state_blend/blend_amount"), 1, delta * acceleration))
 
 # Called every physics tick. 'delta' is constant
 func _physics_process(delta: float) -> void:

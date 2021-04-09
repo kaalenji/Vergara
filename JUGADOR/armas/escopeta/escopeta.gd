@@ -1,7 +1,7 @@
 extends Spatial
 
 var bala = preload("res://JUGADOR/armas/escopeta/perdigon.res")
-export (int) var balaSpeed = 300
+export (int) var balaSpeed = 270
 export(bool) var espocetaSwitch = false
 
 var timerPium = true
@@ -49,7 +49,7 @@ func dispararEscopeta(v):
 		nodo_bala.translation = global_transform.origin
 		var sal = get_node("salida")
 		var desv = 0.005*Vector3(cos((float(my_random_number1)/float(numProjectil))*2*PI),sin((float(my_random_number2)/float(numProjectil))*2*PI),sin((float(my_random_number1)/float(numProjectil))*2*PI))
-		get_parent().get_parent().get_parent().get_parent().add_child(nodo_bala)
+		get_parent().get_parent().get_parent().add_child(nodo_bala)
 		var dir = global_transform.origin + desv - sal.global_transform.origin
 		nodo_bala.v = dir * v
 		
