@@ -1,0 +1,129 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://ESCENAS/s_main/s_main.gd" type="Script" id=2]
+[ext_resource path="res://JUGADOR/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://GENERAL/ladder/Ladder.tscn" type="PackedScene" id=4]
+[ext_resource path="res://GENERAL/fps_counter/FPS_Counter.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ENTIDADES/demonio/demonio.tscn" type="PackedScene" id=10]
+
+[sub_resource type="CubeMesh" id=1]
+size = Vector3( 1, 1, 1 )
+
+[sub_resource type="ConvexPolygonShape" id=2]
+points = PoolVector3Array( -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5 )
+
+[sub_resource type="CubeMesh" id=3]
+size = Vector3( 1, 1, 1 )
+
+[node name="S_Main" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="ArenaGeometry" type="Spatial" parent="."]
+
+[node name="Floor1" type="MeshInstance" parent="ArenaGeometry"]
+transform = Transform( 200, 0, 0, 0, -8.74228e-06, -1, 0, 200, -4.37114e-08, 0, -0.5, 0 )
+use_in_baked_light = true
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="ArenaGeometry/Floor1"]
+
+[node name="CollisionShape" type="CollisionShape" parent="ArenaGeometry/Floor1/StaticBody"]
+shape = SubResource( 2 )
+
+[node name="Slope1" type="MeshInstance" parent="ArenaGeometry"]
+transform = Transform( 12, 0, 0, 0, 3.74016, -0.226577, 0, 8.02083, 0.105654, -13.502, 1.017, 0.041 )
+use_in_baked_light = true
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="ArenaGeometry/Slope1"]
+transform = Transform( 1, 0, 0, 0, 1, 9.31323e-10, 0, -9.53674e-07, 1, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="ArenaGeometry/Slope1/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, -9.53674e-07, 1, 0, 0, 0 )
+shape = SubResource( 2 )
+
+[node name="SlopeWall1" type="MeshInstance" parent="ArenaGeometry"]
+transform = Transform( -1.18125e-06, -2.40367e-07, 0.25, -3.38095, 3.16392, 1.39296e-15, -7.25046, -1.47536, -4.07302e-08, -7.63, -0.353, 1.08 )
+use_in_baked_light = true
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="BigCube1" type="MeshInstance" parent="ArenaGeometry"]
+transform = Transform( -1.74846e-07, 12, -1.31134e-07, 0, -5.24537e-07, -3, -4, -5.24537e-07, 5.73206e-15, -13.5, 1.5, 6 )
+use_in_baked_light = true
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="ArenaGeometry/BigCube1"]
+
+[node name="CollisionShape" type="CollisionShape" parent="ArenaGeometry/BigCube1/StaticBody"]
+shape = SubResource( 2 )
+
+[node name="BigCube2" type="MeshInstance" parent="ArenaGeometry"]
+transform = Transform( -1.74846e-07, 12, -1.31134e-07, 0, -5.24537e-07, -3, -4, -5.24537e-07, 5.73206e-15, 13.5, 1.5, -7.44552 )
+use_in_baked_light = true
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="ArenaGeometry/BigCube2"]
+
+[node name="CollisionShape" type="CollisionShape" parent="ArenaGeometry/BigCube2/StaticBody"]
+shape = SubResource( 2 )
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
+
+[node name="demonios" type="Spatial" parent="."]
+
+[node name="demonio_pocho" parent="demonios" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0.1, -7 )
+
+[node name="demonio_pocho2" parent="demonios" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 3.1, 6 )
+
+[node name="demonio_pocho3" parent="demonios" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 3.1, -7 )
+
+[node name="demonio_pocho4" parent="demonios" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 0.1, 46 )
+
+[node name="Ladder" parent="." instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 7, 0, 1.51, 0, -1, 0, -3.0598e-07, 13.25, 1.5, -5.25 )
+
+[node name="cruceta" type="CenterContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -200.0
+margin_right = 200.0
+margin_bottom = 200.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="cruceta" type="Label" parent="cruceta"]
+margin_left = 165.0
+margin_top = 159.0
+margin_right = 235.0
+margin_bottom = 241.0
+custom_colors/font_color = Color( 1, 1, 1, 0.313726 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "|
+
+---          ---
+
+|"
+align = 1
+valign = 1
+
+[node name="FPS_Counter" parent="." instance=ExtResource( 5 )]
+margin_left = 64.0
+margin_top = 64.0
+margin_right = 128.0
+margin_bottom = 128.0
+align = 1
+[connection signal="body_entered" from="Ladder" to="Player" method="_on_Ladder_body_entered"]

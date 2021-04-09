@@ -1,0 +1,130 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://JUGADOR/player_controller.gd" type="Script" id=1]
+[ext_resource path="res://GENERAL/noche.tres" type="Environment" id=2]
+[ext_resource path="res://JUGADOR/armas/escopeta/escopetas.res" type="PackedScene" id=3]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.8
+height = 0.8
+
+[sub_resource type="Animation" id=2]
+resource_name = "camera_idle"
+length = 1.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.75, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0.05, 0 ), Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "sprint"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, -0.8 ), Vector3( 0, 0, 0.8 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0.08, 0 ), Vector3( 0, 0.12, 0 ), Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "walk"
+length = 0.7
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.5, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, -0.5 ), Vector3( 0, 0, 0.5 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.5, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0.06, 0 ), Vector3( 0, 0.08, 0 ), Vector3( 0, 0, 0 ) ]
+}
+
+[node name="Player" type="KinematicBody" groups=[
+"Player",
+]]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+collision_layer = 2
+collision_mask = 3
+script = ExtResource( 1 )
+head_path = NodePath("Head")
+cam_path = NodePath("Head/Camera")
+
+[node name="Collision" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.6, 0 )
+shape = SubResource( 1 )
+
+[node name="Head" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+
+[node name="canon" parent="Head" instance=ExtResource( 3 )]
+transform = Transform( -3.25836e-08, 0.00116355, -0.199997, 1.89566e-10, 0.199997, 0.00116355, 0.2, 0, -3.25842e-08, 1.7601e-08, -0.4, -1.9 )
+
+[node name="Camera" type="Camera" parent="Head"]
+transform = Transform( 0.999998, 0.00202938, 0, -0.00202938, 0.999998, 0, 0, 0, 1, 0, 0, 0 )
+keep_aspect = 0
+environment = ExtResource( 2 )
+fov = 85.0
+
+[node name="cojera" type="AnimationPlayer" parent="Head/Camera"]
+autoplay = "camera_idle"
+anims/camera_idle = SubResource( 2 )
+anims/sprint = SubResource( 3 )
+anims/walk = SubResource( 4 )
+
+[node name="linterna" type="SpotLight" parent="Head/Camera"]
+transform = Transform( 1, 0, 0, 0, 0.999391, 0.0348995, 0, -0.0348995, 0.999391, -4.37722e-08, 0, 0.5 )
+light_color = Color( 0.8, 0.72, 0.48, 1 )
+light_energy = 7.0
+light_specular = 1.0
+shadow_enabled = true
+shadow_color = Color( 0.22, 0.22, 0.22, 1 )
+shadow_bias = 0.48
+shadow_reverse_cull_face = true
+spot_range = 20.0
+spot_attenuation = 2.0
+spot_angle = 30.0
+spot_angle_attenuation = 0.25

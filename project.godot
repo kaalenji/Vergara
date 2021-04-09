@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Vergara"
-run/main_scene="res://scenes/s_main/S_Main.tscn"
+run/main_scene="res://ESCENAS/s_main/S_Main.tscn"
 config/icon="res://icon.png"
 
 [display]
@@ -1148,4 +1148,4 @@ click={
 [rendering]
 
 quality/filters/anisotropic_filter_level=12
-environment/default_environment="res://scenes/plain_dia.tres"
+environment/default_environment="res://ESCENAS/plain_dia.tres"
