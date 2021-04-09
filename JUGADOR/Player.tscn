@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://JUGADOR/player_controller.gd" type="Script" id=1]
 [ext_resource path="res://GENERAL/noche.tres" type="Environment" id=2]
 [ext_resource path="res://JUGADOR/armas/escopeta/escopetas.res" type="PackedScene" id=3]
+[ext_resource path="res://JUGADOR/armas/revolver/revolver.res" type="PackedScene" id=4]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.8
@@ -92,13 +93,13 @@ animation = "sprint"
 [sub_resource type="AnimationNodeAnimation" id=7]
 animation = "walk"
 
-[sub_resource type="AnimationNodeTimeScale" id=10]
+[sub_resource type="AnimationNodeTimeScale" id=8]
 
-[sub_resource type="AnimationNodeTimeScale" id=11]
+[sub_resource type="AnimationNodeTimeScale" id=9]
 
-[sub_resource type="AnimationNodeBlend3" id=8]
+[sub_resource type="AnimationNodeBlend3" id=10]
 
-[sub_resource type="AnimationNodeBlendTree" id=9]
+[sub_resource type="AnimationNodeBlendTree" id=11]
 graph_offset = Vector2( 59.3956, 103.5 )
 nodes/Animation/node = SubResource( 7 )
 nodes/Animation/position = Vector2( 220, 80 )
@@ -106,14 +107,14 @@ nodes/Animation/position = Vector2( 220, 80 )
 "nodes/Animation 2/position" = Vector2( 200, 200 )
 "nodes/Animation 3/node" = SubResource( 6 )
 "nodes/Animation 3/position" = Vector2( 220, 320 )
-nodes/TimeScale/node = SubResource( 11 )
+nodes/TimeScale/node = SubResource( 9 )
 nodes/TimeScale/position = Vector2( 400, 100 )
-"nodes/TimeScale 2/node" = SubResource( 10 )
+"nodes/TimeScale 2/node" = SubResource( 8 )
 "nodes/TimeScale 2/position" = Vector2( 400, 320 )
 nodes/output/position = Vector2( 760, 200 )
-nodes/state_blend/node = SubResource( 8 )
+nodes/state_blend/node = SubResource( 10 )
 nodes/state_blend/position = Vector2( 580, 180 )
-node_connections = [ "output", 0, "state_blend", "state_blend", 0, "TimeScale", "state_blend", 1, "Animation 2", "state_blend", 2, "TimeScale 2", "TimeScale 2", 0, "Animation 3", "TimeScale", 0, "Animation" ]
+node_connections = [ "output", 0, "state_blend", "TimeScale", 0, "Animation", "state_blend", 0, "TimeScale", "state_blend", 1, "Animation 2", "state_blend", 2, "TimeScale 2", "TimeScale 2", 0, "Animation 3" ]
 
 [node name="Player" type="KinematicBody" groups=[
 "Player",
@@ -131,11 +132,14 @@ shape = SubResource( 1 )
 
 [node name="Head" type="Spatial" parent="."]
 
-[node name="canon" parent="Head" instance=ExtResource( 3 )]
-transform = Transform( -3.25836e-08, 0.00116355, -0.199997, 1.89566e-10, 0.199997, 0.00116355, 0.2, 0, -3.25842e-08, 1.7601e-08, -0.4, -1.9 )
+[node name="escopetas" parent="Head" instance=ExtResource( 3 )]
+transform = Transform( -3.25841e-08, 0, -0.2, 0, 0.2, 0, 0.2, 0, -3.25842e-08, 1.7601e-08, -0.4, -1.9 )
+
+[node name="revolver" parent="Head" instance=ExtResource( 4 )]
+transform = Transform( -3.25841e-08, 0, -0.2, 0, 0.2, 0, 0.2, 0, -3.25841e-08, 0.00075544, 0, -1.49007 )
 
 [node name="Camera" type="Camera" parent="Head"]
-transform = Transform( 0.999999, -0.00120133, 0, 0.00120133, 0.999999, 0, 0, 0, 1, 0, 0.0713766, 0 )
+transform = Transform( 0.99999, 0.00429685, 0, -0.00429685, 0.99999, 0, 0, 0, 1, 0, 0.0295431, 0 )
 keep_aspect = 0
 environment = ExtResource( 2 )
 fov = 85.0
@@ -161,7 +165,7 @@ anims/sprint = SubResource( 3 )
 anims/walk = SubResource( 4 )
 
 [node name="AnimationTree" type="AnimationTree" parent="Head"]
-tree_root = SubResource( 9 )
+tree_root = SubResource( 11 )
 anim_player = NodePath("../cojera")
 active = true
 parameters/TimeScale/scale = 0.8

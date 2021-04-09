@@ -1,13 +1,7 @@
-[gd_scene load_steps=4 format=2]
+extends Spatial
 
-[ext_resource path="res://animation/playercanon_idle.tres" type="Animation" id=1]
-[ext_resource path="res://imports/LongPistol.mesh" type="ArrayMesh" id=3]
-
-[sub_resource type="GDScript" id=1]
-script/source = "extends Spatial
-
-var bala = preload(\"res://entities/player/bala.res\")
-export (int) var balaSpeed = 300
+var bala = preload("res://JUGADOR/armas/escopeta/perdigon.res")
+export (int) var balaSpeed = 270
 export(bool) var espocetaSwitch = false
 
 var timerPium = true
@@ -24,13 +18,13 @@ func _process(_delta):
 	rot.x = get_parent().rotation.x
 	rot.y = get_parent().get_parent().rotation.y
 	
-	while(Input.is_action_pressed(\"click\")) and timerPium and !get_node(\"../../\").sprinting:
+	while(Input.is_action_pressed("click")) and timerPium and !get_node("../../").sprinting:
 		dispararEscopeta(balaSpeed) # velocidad balas
 		espocetaSwitch = !espocetaSwitch
-		if (espocetaSwitch):
-			get_node(\"escopeta/AnimationPlayer\").play(\"FireWBullet001\")
-		else:
-			get_node(\"escopeta2/AnimationPlayer\").play(\"FireWBullet001\")
+		#if (espocetaSwitch):
+		#	get_node("escopeta/AnimationPlayer").play("FireWBullet001")
+		#else:
+		#	get_node("escopeta2/AnimationPlayer").play("FireWBullet001")
 		timerPium = false
 		$limiteDisparo.start()
 	
@@ -38,7 +32,7 @@ func disparar(v):
 	var nodo_bala = bala.instance()
 	
 	nodo_bala.translation = global_transform.origin
-	var sal = get_node(\"salida\")
+	var sal = get_node("salida")
 	
 	get_parent().get_parent().get_parent().get_parent().add_child(nodo_bala)
 	
@@ -53,29 +47,11 @@ func dispararEscopeta(v):
 		var my_random_number2 = rng.randf_range(0, i)
 		var nodo_bala = bala.instance()
 		nodo_bala.translation = global_transform.origin
-		var sal = get_node(\"salida\")
+		var sal = get_node("salida")
 		var desv = 0.005*Vector3(cos((float(my_random_number1)/float(numProjectil))*2*PI),sin((float(my_random_number2)/float(numProjectil))*2*PI),sin((float(my_random_number1)/float(numProjectil))*2*PI))
-		get_parent().get_parent().get_parent().get_parent().add_child(nodo_bala)
+		get_parent().get_parent().get_parent().add_child(nodo_bala)
 		var dir = global_transform.origin + desv - sal.global_transform.origin
 		nodo_bala.v = dir * v
+		
 func _on_limiteDisparo_timeout():
 	timerPium = true
-"
-
-[node name="LongPistol" type="Spatial"]
-script = SubResource( 1 )
-
-[node name="LongPistol" type="MeshInstance" parent="."]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.759315, -5.05916 )
-mesh = ExtResource( 3 )
-material/0 = null
-material/1 = null
-material/2 = null
-material/3 = null
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "playercanon_idle"
-anims/playercanon_idle = ExtResource( 1 )
-
-[node name="salida" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.459 )
