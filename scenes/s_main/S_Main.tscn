@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/s_main/materials/tierra.material" type="Material" id=1]
 [ext_resource path="res://scenes/s_main/s_main.gd" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://assets/sakerhets.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scripts/cerillas_counter.gd" type="Script" id=9]
 [ext_resource path="res://assets/demonio_pocho.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/carretera.tscn" type="PackedScene" id=11]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 1, 1, 1 )
@@ -26,7 +27,7 @@ script = ExtResource( 2 )
 [node name="ArenaGeometry" type="Spatial" parent="."]
 
 [node name="Floor1" type="MeshInstance" parent="ArenaGeometry"]
-transform = Transform( 500, 0, 0, 0, -2.18557e-05, -1, 0, 500, -4.37114e-08, 0, -0.5, 0 )
+transform = Transform( 200, 0, 0, 0, -8.74228e-06, -1, 0, 200, -4.37114e-08, 0, -0.5, 0 )
 use_in_baked_light = true
 mesh = SubResource( 1 )
 material/0 = ExtResource( 1 )
@@ -76,6 +77,9 @@ material/0 = ExtResource( 7 )
 
 [node name="CollisionShape" type="CollisionShape" parent="ArenaGeometry/BigCube2/StaticBody"]
 shape = SubResource( 2 )
+
+[node name="carretera" parent="ArenaGeometry" instance=ExtResource( 11 )]
+transform = Transform( -8.74228e-08, 0, -2, 0, 2, 0, 2, 0, -8.74228e-08, 0, -2, 120 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
@@ -190,7 +194,6 @@ script = ExtResource( 9 )
 [node name="cerilla" parent="." instance=ExtResource( 6 )]
 transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 13, 0 )
 mass = 0.510204
-[connection signal="cerillaUsed" from="Player" to="MarginContainer/GridContainer/CERILLAS" method="_on_Player_cerillaUsed"]
 [connection signal="cerillaCollected" from="sakerhets/sakerhets" to="MarginContainer/GridContainer/CERILLAS" method="_on_sakerhets_cerillaCollected"]
 [connection signal="cerillaCollected" from="sakerhets/sakerhets5" to="MarginContainer/GridContainer/CERILLAS" method="_on_sakerhets_cerillaCollected"]
 [connection signal="cerillaCollected" from="sakerhets/sakerhets7" to="MarginContainer/GridContainer/CERILLAS" method="_on_sakerhets_cerillaCollected"]

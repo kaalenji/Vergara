@@ -20,7 +20,7 @@ func _process(delta):
 
 func _on_bala_body_entered(_body: PhysicsBody) -> void:
 	var target = _body
-	print(target.name)
+	#print(target.name)
 	match(target.get_parent().name):
 		"demonios":
 			target._damaged(damage)

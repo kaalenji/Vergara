@@ -43,7 +43,7 @@ enum {
 var state = IDLE	
 
 ### SIGNALS ###
-signal cerillaUsed
+#signal cerillaUsed
 ##################################################
 
 # Called when the node enters the scene tree
