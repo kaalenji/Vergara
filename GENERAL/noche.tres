@@ -1,10 +1,6 @@
-[gd_resource type="Environment" load_steps=2 format=2]
-
-[ext_resource path="res://GENERAL/crepusculo_cielo.res" type="ProceduralSky" id=1]
+[gd_resource type="Environment" format=2]
 
 [resource]
-background_mode = 2
-background_sky = ExtResource( 1 )
 fog_enabled = true
 fog_color = Color( 0.0745098, 0.0862745, 0.101961, 1 )
 fog_sun_color = Color( 0.501961, 0.439216, 0.439216, 1 )

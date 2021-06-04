@@ -4,7 +4,7 @@ extends KinematicBody
 var mouse_sensitivity = 9.2
 export(NodePath) var head_path
 export(NodePath) var cam_path
-var FOV = 90.0
+var FOV = 87.3
 var mouse_axis := Vector2()
 onready var head: Spatial = get_node(head_path)
 onready var cam: Camera = get_node(cam_path)
@@ -29,7 +29,6 @@ var fly_speed = 20
 var fly_accel = 40
 var flying := false
 var change_v = false
-var arma = false
 
 enum {
 	IDLE,
@@ -42,22 +41,12 @@ var state = IDLE
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	cam.fov = FOV
-	$Head/revolver.set_process(false)
-	$Head/revolver.visible = false
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame
 func _process(delta: float):# -> void:
 	move_axis.x = Input.get_action_strength("move_forward") - Input.get_action_strength("move_backward")
 	move_axis.y = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-	
-	if Input.is_action_just_pressed("cambio_arma"):
-		arma = !arma
-		$Head/escopetas.set_process(!arma)
-		$Head/escopetas.visible = !arma
-		$Head/revolver.set_process(arma)
-		$Head/revolver.visible = arma
-	
+
 	if is_on_floor() and velocity.length() < 0.56:
 		state = IDLE
 	elif is_on_floor() and velocity.length() > 0.56 and !sprinting:
@@ -119,7 +108,7 @@ func walk(delta: float) -> void:
 	var _speed: int
 	if (Input.is_action_pressed("move_sprint") and can_sprint()):
 		_speed = sprint_speed
-		cam.set_fov(lerp(cam.fov, FOV * 1.05, delta * 1))
+		cam.set_fov(lerp(cam.fov, FOV * 1.25, delta * 1))
 		sprinting = true
 	else:
 		_speed = walk_speed

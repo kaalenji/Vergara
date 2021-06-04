@@ -1,13 +1,14 @@
 extends Spatial
 
 var bala = preload("res://JUGADOR/armas/escopeta/perdigon.res")
-export (int) var balaSpeed = 270
+export (int) var balaSpeed = 337
 export(bool) var espocetaSwitch = false
 
 var timerPium = true
 var canPium = true
-var numProjectil = 12
+var numProjectil = 17
 var rot = Vector3(0,0,0)
+var dispersion = 0.0022
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -21,10 +22,10 @@ func _process(_delta):
 	while(Input.is_action_pressed("click")) and timerPium and !get_node("../../").sprinting:
 		dispararEscopeta(balaSpeed) # velocidad balas
 		espocetaSwitch = !espocetaSwitch
-		#if (espocetaSwitch):
-		#	get_node("escopeta/AnimationPlayer").play("FireWBullet001")
-		#else:
-		#	get_node("escopeta2/AnimationPlayer").play("FireWBullet001")
+		if (espocetaSwitch):
+			get_node("escopeta1/AnimationPlayer").play("disparo1")
+		else:
+			get_node("escopeta2/AnimationPlayer").play("disparo1")
 		timerPium = false
 		$limiteDisparo.start()
 	
@@ -48,7 +49,7 @@ func dispararEscopeta(v):
 		var nodo_bala = bala.instance()
 		nodo_bala.translation = global_transform.origin
 		var sal = get_node("salida")
-		var desv = 0.005*Vector3(cos((float(my_random_number1)/float(numProjectil))*2*PI),sin((float(my_random_number2)/float(numProjectil))*2*PI),sin((float(my_random_number1)/float(numProjectil))*2*PI))
+		var desv = dispersion*Vector3(cos((float(my_random_number1)/float(numProjectil))*2*PI),sin((float(my_random_number2)/float(numProjectil))*2*PI),sin((float(my_random_number1)/float(numProjectil))*2*PI))
 		get_parent().get_parent().get_parent().add_child(nodo_bala)
 		var dir = global_transform.origin + desv - sal.global_transform.origin
 		nodo_bala.v = dir * v

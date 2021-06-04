@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://JUGADOR/armas/escopeta/escopeta.gd" type="Script" id=1]
+[ext_resource path="res://JUGADOR/armas/escopeta/escopeta_indiv.res" type="PackedScene" id=2]
+
+[node name="escopetas" type="Spatial"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0 )
+script = ExtResource( 1 )
+balaSpeed = 10500
+
+[node name="salida" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 0 )
+
+[node name="limiteDisparo" type="Timer" parent="."]
+wait_time = 0.37
+
+[node name="escopeta1" parent="." instance=ExtResource( 2 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 4.3, 0.3, 2.9 )
+
+[node name="escopeta2" parent="." instance=ExtResource( 2 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 4.3, 0.3, -2.9 )
+[connection signal="timeout" from="limiteDisparo" to="." method="_on_limiteDisparo_timeout"]
