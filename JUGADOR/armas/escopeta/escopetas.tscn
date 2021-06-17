@@ -19,4 +19,5 @@ transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 4.3, 0.3, 2.9 )
 
 [node name="escopeta2" parent="." instance=ExtResource( 2 )]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 4.3, 0.3, -2.9 )
+
 [connection signal="timeout" from="limiteDisparo" to="." method="_on_limiteDisparo_timeout"]
